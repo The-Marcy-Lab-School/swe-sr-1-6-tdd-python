@@ -15,32 +15,57 @@ to check how it is rendered before submitting.
 
 ## Question 1
 
-You have filled in `predictions.py` and run `python3 check.py`. Some of your
-predictions did not match.
+A gym charges its members $5 for every visit, but never more than $40 in a
+month. Devon wrote this function, and then wrote a test for it:
+
+```py
+# src/fees.py
+def get_monthly_fee(visits):
+    """$5 per visit, but never more than $40 in a month."""
+    fee = visits * 5
+    if fee > 40:
+        fee = 40
+    return fee
+```
+
+```py
+# tests/test_fees.py
+from src.fees import get_monthly_fee
+
+
+def test_get_monthly_fee():
+    """get_monthly_fee - charges $5 per visit"""
+    assert get_monthly_fee(3) == 15
+```
+
+The test passed. A month later, Rosa refactored the function and changed one
+line, from `if fee > 40:` to `if visits > 40:`. Rosa ran the tests, saw them
+pass, and shipped the change. Now members who visit 10 times in a month are
+being charged $50.
 
 ### Prompt 1
 
-Write up what you found. Cover all four:
+Use these terms correctly within your response:
 
-- **What the program does, in one sentence.** Someone who has never opened it
-  should know what it is for after reading your sentence.
-- **Your findings.** For each prediction that did not match: the call, what
-  you expected, what it actually returned, and which line causes the
-  difference. If every prediction matched, say what made this program
-  predictable, and name the one place you think a reader could still be caught
-  out.
-- **One bug report.** Pick the finding that would matter most to a customer and
-  write it the way you would file it: concrete input, actual output, expected
-  output, and the file and function it lives in. Say why that one and not
-  another.
-- **How you used the AI, and where it was wrong or unhelpful.** Quote one
-  question you asked. If everything it said held up, say what you asked and
-  why that was a question about Python rather than a question about this
-  program.
+- **assert**
+- **refactor**
+- **test-driven development**
 
-That last part is not a formality. Learning where a tool stops being reliable
-is the skill, and you only find that edge by checking its answers against the
-running code.
+Explain why the tests passed even though the function was broken.
+
+Cover all three:
+
+- What `assert get_monthly_fee(3) == 15` actually checks, and why it still
+  passed after Rosa's change. Reference specific code that contributed to this
+  behavior.
+- The test or tests Devon should have written, as code, so that Rosa's change
+  would have failed. Say which requirement each one checks.
+- Suppose Devon had written your tests _first_, before the `if` statement that
+  caps the fee existed. What would pytest have reported on the first run, and
+  why is that failing result useful rather than a problem?
+
+That last part is the most important one. A test that has never failed has
+never shown that it can tell working code from broken code.
 
 ### Response 1
 
