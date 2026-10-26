@@ -39,11 +39,14 @@ def test_get_monthly_fee():
 ```
 
 The test passed. A month later, Rosa refactored the function and changed one
-line, from `if fee > 40:` to `if visits > 40:`. Rosa ran the tests, saw them
+line, from `if fee > 40:` to `if visits > 40:` even though the policy of "never more
+than $40" never changed. Rosa ran the tests, saw them
 pass, and shipped the change. Now members who visit 10 times in a month are
-being charged $50.
+being charged $50 instead of $40.
 
 ### Prompt 1
+
+_Note_: Read up on [Test-Driven Development in the GitBook](https://marcylabschool.gitbook.io/swe/computational-thinking-and-responsible-use-of-ai/mod-1-python-fundamentals/10-test-driven-development) before writing your response
 
 Use these terms correctly within your response:
 
@@ -51,21 +54,24 @@ Use these terms correctly within your response:
 - **refactor**
 - **test-driven development**
 
-Explain why the tests passed even though the function was broken.
-
-Cover all three:
+Explain why the tests passed even though the function was broken. Cover all three:
 
 - What `assert get_monthly_fee(3) == 15` actually checks, and why it still
   passed after Rosa's change. Reference specific code that contributed to this
   behavior.
 - The test or tests Devon should have written, as code, so that Rosa's change
-  would have failed. Say which requirement each one checks.
+  would have failed. Say which aspect of the gym's pricing policy each test checks.
 - Suppose Devon had written your tests _first_, before the `if` statement that
-  caps the fee existed. What would pytest have reported on the first run, and
-  why is that failing result useful rather than a problem?
+  caps the fee existed. For example:
 
-That last part is the most important one. A test that has never failed has
-never shown that it can tell working code from broken code.
+  ```py
+  def get_monthly_fee(visits):
+      fee = visits * 5
+      return fee
+  ```
+
+  What would pytest have reported on the first run, and
+  why is that failing result useful rather than a problem?
 
 ### Response 1
 
