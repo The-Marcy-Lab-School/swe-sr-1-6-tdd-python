@@ -30,7 +30,7 @@ def get_monthly_fee(visits):
 
 ```py
 # tests/test_fees.py
-from src.fees import get_monthly_fee
+from fees import get_monthly_fee
 
 
 def test_get_monthly_fee():
